@@ -1,0 +1,17 @@
+{
+  "name": "challenge-12-emp-tracking-mm",
+  "version": "1.0.0",
+  "description": "Employee Tracker",
+  "main": "index.js",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "mysql": "^8.0.29"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
+  
