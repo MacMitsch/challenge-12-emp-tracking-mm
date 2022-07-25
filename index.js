@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
+require("console.table");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -12,10 +13,10 @@ const connection = mysql.createConnection({
 connectionl.connect(function (err) {
     if (err) throw err;
     //   After connection is established run first Function
-    firstPrompt();
+    welcomePrompt();
 });
 
-function firstPrompt() {
+function welcomePrompt() {
     inquirer.prompt([
         {
             type: 'list',
@@ -34,11 +35,42 @@ function firstPrompt() {
         }
     ]).then((res) => {
         console.log(res.selection);
-        case "View All Employees";
-        viewAllEmployees();
-        break;
-        case "View Employees By Departments";
-        viewEmployeeByDepartments();
-        break;
-    })
+        switch (res.selection) {
+
+            case "View All Employees":
+                viewAllEmployees();
+                break;
+
+            case "View Employees By Departments":
+                viewEmployeeByDepartments();
+                break;
+
+            case "Add New Employee":
+                addNewEmployee();
+                break;
+
+            case "Remove Old Employee":
+                removeOldEmployee();
+                break;
+
+            case "Update Employee Role":
+                updateEmployeeRole();
+                break;
+
+            case "Create New Role":
+                createNewRole();
+                break;
+
+            case "Create New Department":
+                createNewDepartment();
+                break;
+
+            case "Leave":
+                connection.end();
+                break;
+        }
+
+    }).catch((err) => {
+        if (err) throw err;
+    });
 }
