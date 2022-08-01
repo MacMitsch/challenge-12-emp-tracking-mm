@@ -183,6 +183,7 @@ const addNewEmployee = async () => {
         role_id: answer.updateEmployeeRole,
         manager_id: (answer.employeeManagerId)
     });
+
 // Result posted to table or give error
     console.log(`${answer.firstName} ${answer.lastName} successfully added`);
     initialAction();
@@ -191,4 +192,55 @@ const addNewEmployee = async () => {
         initialAction();
     }
 
+}
+
+// Add New Department
+const createNewDepartment = async () => {
+    try {
+        console.log('Create New Department');
+
+        let answer = inquirer.prompt([
+            {
+                name:'departmentName',
+                type: 'input',
+                message: 'What is the name of the new Department?'
+            }
+        ]);
+        console.log(`Successfully added new department ${answer.departmentName}`)
+        initialAction();
+    } catch (err) {
+        console.log(err);
+        initialAction();
+    };
+}
+
+// New Role
+const createNewRole = async () => {
+    try {
+        console.log('New role added');
+
+        let department = connection.query('SELECT * FROM department')
+        let answer = inquirer.prompt([
+            {
+                name:'title',
+                type:'input',
+                message: 'What is the new Roles name?'
+            },
+            {
+                name:'salary',
+                type: 'input',
+                message:'please enter the salary.'
+            },
+            {
+                name:'departmentName',
+                type: 'list',
+                choices: departments.map((departmentId)=> {
+                    return {
+                        name: departmentId.department_name,
+                        value: departmentId.id
+                    }
+                });
+            }
+        ])
+    }
 }
